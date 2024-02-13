@@ -1,0 +1,9 @@
+package sangchu.trade.vo;
+
+public class TradeVO {
+	
+	//거래테이블 VO
+	//상품등록시 필요한 컬럼들..
+
+
+}

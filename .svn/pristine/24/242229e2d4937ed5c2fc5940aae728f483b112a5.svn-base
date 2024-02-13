@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 myBatis에서 처리할 SQL문을 작성하는 문서입니다. -->
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!--
+	작성자 : 김보영
+	메인에서 사용되는 모든 쿼리들
+
+  -->
+
+<mapper namespace="mainProd">
+	
+	<!--인기상품을 조회하기위해 조회수와 찜횟수를 반환하는 쿼리-->
+	<select id="hotItemRank" resultType="mainProdVO" parameterType="mainProdVO">
+		SELECT 
+			a.T_NO
+			,a.TB_TITLE
+			,a.TB_PRICE
+			,a.TB_OFFER
+			,a.TB_CNT
+			,TO_CHAR(B.T_DATE, 'YYYY-MM-DD') AS T_DATE
+			,NVL(c.CNT,0) + a.tb_cnt AS hot
+		FROM T_BOARD a 
+		INNER JOIN TRADE b
+		ON a.T_NO = b.T_NO
+		LEFT OUTER JOIN (
+			SELECT t_no, count(*) cnt FROM T_JJIM GROUP BY t_no
+		) c
+			ON a.t_no = c.t_no
+		WHERE b.T_STATE=0	
+		ORDER BY hot DESC	
+	 </select>
+	 
+	 <!-- 최근등록 상품을 조회하기 위한 쿼리-->
+	<select id="recentProd" parameterType="mainProdVO" resultType="mainProdVO">
+		SELECT 
+			A.TB_TITLE
+			, A.TB_PRICE
+			, TO_CHAR(B.T_DATE, 'YYYY-MM-DD') AS T_DATE
+			,A.T_NO
+		FROM T_BOARD a
+		INNER JOIN TRADE b
+		ON a.T_NO = b.T_NO
+		WHERE b.T_STATE = 0
+		ORDER BY b.T_DATE
+	</select>
+	
+	
+	<update id="updateInterest" parameterType="mainProdVO" >
+	
+		UPDATE U_INTEREST
+		SET C_MIDDLECAT= #{c_middlecat}
+		WHERE EMAIL= #{email}
+	
+	</update>
+	
+	<!--관심카테고리를 출력하기 위한 1,2 -->
+	<delete id="deleteInterest" parameterType="mainProdVO">
+	
+		DELETE 
+		FROM U_INTEREST
+		WHERE EMAIL=#{email} 
+	</delete>
+	
+	<insert id="insertInterest" parameterType="mainProdVO">
+		INSERT INTO U_INTEREST
+				(EMAIL, C_MIDDLECAT)
+		VALUES(#{email},#{c_middlecat})
+	
+	
+	
+	</insert>
+	
+	
+	
+	<select id="selectUserCate" resultType="mainProdVO" parameterType="mainProdVO">
+		SELECT 
+			a.T_NO
+			,b.C_MIDDLECAT
+			,a.TB_TITLE
+			,a.TB_PRICE
+			,a.TB_OFFER
+			,b.T_DATE
+			,a.TB_CNT
+		FROM T_BOARD a 
+		INNER JOIN TRADE b
+		ON a.T_NO = b.T_NO
+		LEFT OUTER JOIN (
+			SELECT email, c_middlecat FROM U_INTEREST
+		) c
+			ON b.EMAIL = c.email
+			AND b.C_MIDDLECAT = c.c_middlecat
+		WHERE b.EMAIL=#{email}
+		ORDER BY b.T_DATE DESC
+		
+	</select>
+	 
+	 
+
+</mapper>	

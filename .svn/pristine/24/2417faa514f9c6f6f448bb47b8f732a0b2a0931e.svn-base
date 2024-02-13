@@ -1,0 +1,38 @@
+package sangchu.category.service;
+
+import java.util.List;
+
+import sangchu.category.dao.CategoryDaoImpl;
+import sangchu.category.dao.ICategoryDao;
+import sangchu.category.vo.CatLargeVO;
+import sangchu.category.vo.CatMiddleVO;
+
+public class CategoryServiceImpl implements ICategoryService {
+	
+	private ICategoryDao dao;
+	private static ICategoryService service;
+
+	private CategoryServiceImpl() {
+		dao = CategoryDaoImpl.getDao();
+	}
+	
+	public static ICategoryService getService() {
+		if( service == null) service = new CategoryServiceImpl();
+		return service;
+	}
+	
+	
+	
+	@Override
+	public List<CatLargeVO> selectCatLargeList(CatLargeVO la) {
+		// TODO Auto-generated method stub
+		return dao.selectCatLargeList(la);
+	}
+
+	@Override
+	public List<CatMiddleVO> selectCatMiddleList(CatMiddleVO mi) {
+		// TODO Auto-generated method stub
+		return dao.selectCatMiddleList(mi);
+	}
+
+}

@@ -1,0 +1,23 @@
+<%@page import="sangchu.main.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<%
+	MemberVO vo = (MemberVO)request.getSession().getAttribute("memVO");
+	String email = vo.getEmail();
+%>
+<meta charset="UTF-8">
+<title>관심카테고리 관리...</title>
+</head>
+<body>
+	<div id="cat-print-space">
+		<div class="inner-large">
+		</div>
+		<div class="inner-middle">
+		</div>
+	</div>
+	
+</body>
+</html>

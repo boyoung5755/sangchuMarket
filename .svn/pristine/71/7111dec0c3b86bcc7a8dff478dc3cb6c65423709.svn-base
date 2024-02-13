@@ -1,0 +1,11 @@
+package sangchu.login.dao;
+
+public interface ILoginDao {
+
+	/**
+	 * 회원가입시, 이메일 중복검사 메소드. 회원 email을 입력받아, email 반환
+	 * @param String email
+	 * @return String email
+	 */
+	public String checkEmail(String email);
+}

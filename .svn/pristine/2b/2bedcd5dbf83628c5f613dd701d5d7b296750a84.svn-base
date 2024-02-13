@@ -1,0 +1,25 @@
+package sangchu.login.service;
+
+import sangchu.login.dao.LoginDaoImpl;
+
+public class LoginServiceImpl implements ILoginService{
+
+	private static LoginServiceImpl service;
+	private LoginDaoImpl dao;
+	
+	private LoginServiceImpl() {
+		dao = LoginDaoImpl.getInstance();
+	}
+	
+	public static LoginServiceImpl getInstance() {
+		if(service==null)service=new LoginServiceImpl();
+		return service;
+	}
+	
+	
+	@Override
+	public String checkEmail(String email) {
+		return dao.checkEmail(email);
+	}
+
+}

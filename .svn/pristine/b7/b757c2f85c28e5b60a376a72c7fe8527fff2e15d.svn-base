@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 myBatis에서 처리할 SQL문을 작성하는 문서입니다. -->
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- 
+	최초 작성자 : 박민주
+	최초 작성일 : 2023.08.08 00:05 ....
+	
+	미완성
+ -->	
+<mapper namespace="member">
+
+	<!--[1차 회원가입] 이메일 중복검사 -->
+	<select id="checkEmail" parameterType="String" resultType="String">
+		select email userEmail from all_users where email=#{email} 
+	</select>
+	
+	<!--[1차 회원가입] 1차 회원가입 정보 입력 -->
+	<insert id="insertFristSignup" parameterType="memVO">
+		insert into all_users (email, pass, name, logindate, a_code) 
+		values (#{email}, #{pass}, #{name}, sysdate, '0')
+	</insert>
+	
+	<!--[2차 회원가입, 로그인] a_code확인 -->
+	<select id="checkACode" parameterType="String" resultType="String">
+		select A_code from all_users where email=#{email}
+	</select>
+
+	<!--[2차 회원가입] 닉네임 중복검사-->
+	<select id="checkNickname" parameterType="String" resultType="String">
+		select U_nick from users where U_nick=#{nick}
+	</select>
+	
+	<!--[로그인] 아이디&비밀번호가 존재하는지-->
+	<select id="login" parameterType="memVO" resultType="int">
+		select count(*) from all_users where email=#{email} and pass=#{pass}
+	</select>
+	
+	<!--[로그인] 마지막 로그인 날짜를 오늘로 업데이트-->
+	<update id="updateLogindate" parameterType="String">
+		update all_users set logindate=sysdate where email = #{email}
+	</update>
+	
+	<!--[로그인] 마지막 로그인 날짜를 오늘로 업데이트-->
+	<select id="getUserACode" parameterType="String" resultType="String">
+		select a_code from all_users where email = #{email}
+	</select>
+	
+	<!--[로그인] 로그인 시도 횟수 반환-->
+	<select id="getTempPass" parameterType="String" resultType="int">
+		select U_TEMPPASS from users where email=#{email}
+	</select>
+	
+	<!--[로그인] 로그인 시도 횟수 +1 -->
+	<update id="updateTempPass" parameterType="String">
+		update users set U_TEMPPASS=U_TEMPPASS+1 where email=#{email}
+	</update>
+	
+	
+</mapper>

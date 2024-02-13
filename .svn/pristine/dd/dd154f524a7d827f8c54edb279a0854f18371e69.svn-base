@@ -1,0 +1,51 @@
+package sangchu.tboard.dao;
+
+import java.util.List;
+
+import sangchu.tboard.vo.TBoardVO;
+import sangchu.trade.vo.TradeVO;
+
+public interface ITBoardDao {
+
+	/**
+	 * 중카테고리 번호를 기준으로 trade 테이블 전체 조회 
+	 * @param mid c_middlecat
+	 * @return
+	 */
+	public List<TBoardVO> selectTBoard(String mid);
+	
+	
+	
+	
+	/**
+	 * 최근 등록된 상품 조회하는 메소드 
+	 * @return 최근등록상품순으로 정렬된 list
+	 * 작성자 : 김보영
+	 */
+	public List<TBoardVO> recentProd (TBoardVO vo);
+
+	/**
+	 * t_no를 기준으로 t_board 테이블 컬럼 조회
+	 * @param tid t_no
+	 * @return
+	 */
+	public TBoardVO selectTBoardOne(String tid);
+
+
+
+	/**
+	 * t_no를 기준으로 trade 테이블 컬럼 조회
+	 * @param tid t_no
+	 * @return
+	 */
+	public TradeVO selectTradeOne(String tid);
+
+
+
+	/**
+	 * t_no를 기준으로 image 불러오기
+	 * @param tid t_no
+	 * @return
+	 */
+	public List<String> tImage(String tid);
+}

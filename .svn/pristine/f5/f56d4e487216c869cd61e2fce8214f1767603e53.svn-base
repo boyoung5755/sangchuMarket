@@ -1,0 +1,5 @@
+package sangchu.main.service;
+
+public interface IMainService {
+
+}

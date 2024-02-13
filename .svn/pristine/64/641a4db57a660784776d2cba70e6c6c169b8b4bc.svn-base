@@ -1,0 +1,47 @@
+package sangchu.login.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import sangchu.login.service.ILoginService;
+import sangchu.login.service.LoginServiceImpl;
+
+@WebServlet("/signup2.do")
+public class Signup2 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//url 에 포함된 email 가져오기
+		String userEmail = request.getParameter("email"); 
+		
+		//service 객체 생성후, checkACode() => 해당 유저의 a_code (String) 확인 => 문자 1 또는 0
+		ILoginService service = LoginServiceImpl.getInstance();
+		String userAcode = service.checkACode(userEmail); 
+		
+		if(userAcode.equals("0")) { //1차 회원가입 (이메일인증 메일 발송) 후 회원가입 대기중 상태 => 2차 회원가입 페이지로 이동
+			request.setAttribute("userEmail", userEmail);
+			request.getRequestDispatcher("/WEB-INF/jsp/login/signup2.jsp").forward(request, response);
+			
+		}else { //회원가입 완료 상태 => "유효하지 않은 url 입니다."를 alert창에 띄워준 후, 홈페이지 메인페이지로 이동
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('유효하지 않은 URL입니다.'); location.href='"+ request.getContextPath()+ "/main.do'</script>");
+		}
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//signup2.jsp에서 submit 클릭시, 여기로 옴 //2차 회원가입 최종 전송
+	
+		
+		
+		
+	
+	}
+
+}

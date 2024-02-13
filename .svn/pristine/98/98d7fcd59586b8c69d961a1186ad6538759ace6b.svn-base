@@ -1,0 +1,91 @@
+package sangchu.tboard.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import mybatis.config.MybatisUtil;
+import sangchu.tboard.vo.TBoardVO;
+import sangchu.trade.vo.TradeVO;
+
+public class TBoardDaoImpl implements ITBoardDao {
+
+	SqlSession sql;
+	
+	private static ITBoardDao dao;
+	
+	public static ITBoardDao getInstance() {
+		if(dao==null)dao=new TBoardDaoImpl();
+		return dao;
+	}
+	
+	@Override
+	public List<TBoardVO> selectTBoard(String mid) {
+		List<TBoardVO> list=null;
+		try { 
+			sql=MybatisUtil.getSqlSession();
+			list = sql.selectList("tboard.selectTBoard", mid);
+		}catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(sql!=null) sql.commit();
+			if(sql!=null) sql.close();
+		}
+		return list;
+	}
+	
+	
+	
+	//최근등록된 상품 조회
+	@Override
+	public List<TBoardVO> recentProd(TBoardVO vo) {
+		
+		List<TBoardVO> list = null;
+		
+		sql = MybatisUtil.getSqlSession();
+		
+		try {
+			list = sql.selectList("tboard.recentProd", vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sql.commit();
+			sql.close();
+		}
+		return list;
+	}
+
+	@Override
+	public TBoardVO selectTBoardOne(String tid) {
+		
+		TBoardVO vo = null;
+		
+		try {
+			sql = MybatisUtil.getSqlSession();
+			vo = sql.selectOne("tboard.selectTBoardOne", tid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sql.commit();
+			sql.close();
+		}
+		return vo;
+	}
+
+	@Override
+	public TradeVO selectTradeOne(String tid) {
+		
+		TradeVO vo = null;
+		
+		try {
+			sql = MybatisUtil.getSqlSession();
+			vo = sql.selectOne("tboard.selectTradeOne", tid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sql.commit();
+			sql.close();
+		}
+		return vo;
+	}
+}

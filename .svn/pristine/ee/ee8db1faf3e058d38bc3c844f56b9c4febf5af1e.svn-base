@@ -1,0 +1,251 @@
+<%@page import="sangchu.main.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<!--
+	최초 작성자 : 김석호
+ 	최초 작성일 : 2023.08.06 02:42
+ 	
+ 	최근 수정자 : 김석호
+ 	최근 수정일 : 2023.08.11 11:04
+ 	
+ 	미완성
+ 	
+ 	수정 내역
+ 	2023.08.10 10:19 - 김석호 : 세션 풀어헤쳐서 로그인 유저 갖고오는 방식 스크립트릿 추가
+ 	2023.08.10 13:26 - 김석호 : 찜리스트 로케이션 추가
+ 	2023.08.11 11:04 - 김석호 : 등록상품 버튼 로케이션 변경
+ 	마이 페이지 우측에 표시되는 기본 페이지입니다.
+ -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>마이페이지 메인 기본값</title>
+<script src="<%=request.getContextPath()%>/js/jquery/jquery-3.7.0.min.js"></script>
+<script>
+	$(function(){
+		// 등록 상품 버튼
+		$('#regproduct').on('click',function(){
+			$('#subcontent').empty();
+			$('#subcontent').load("<%=request.getContextPath()%>/regList.do");
+		});
+		
+		// 거래이력 버튼
+		$('#tradelog').on('click',function(){
+			$('#subcontent').empty();
+			$('#subcontent').load("<%=request.getContextPath()%>/");
+		});
+		
+		// 찜목록 버튼
+		$('#jjimlist').on('click',function(){
+			$('#subcontent').empty();
+			$('#subcontent').load("<%=request.getContextPath()%>/jjimList.do");
+		});
+		
+		// 상추톡 버튼
+		$('#sangchutalk').on('click',function(){
+			$('#subcontent').empty();
+			$('#subcontent').load("<%=request.getContextPath()%>/openSangchuTalk.do");
+		});
+		
+		// 거래후기 버튼
+		$('#scoreboard').on('click',function(){
+			$('#subcontent').empty();
+			$('#subcontent').load("<%=request.getContextPath()%>/");
+		});
+		
+		$('#regproduct').trigger('click');
+	});
+</script>
+</head>
+<style>
+
+	#nickname {
+		display : inline-block;
+	}
+	#update-nickname, #nickname{
+		vertical-align: top;
+		margin-top : 10px;
+	}
+	.rounded-circle {
+	    border-radius: 50%!important;
+	    display : inline-block;
+	    width : 200px;
+	    height : 200px;
+	}
+	.logo {
+		width : 20px;
+		heigth : 20px;
+	}
+	.btn {
+	    display: inline-block;
+	    font-weight: 400;
+	    text-align: center;
+	    white-space: nowrap;
+	    vertical-align: middle;
+	    user-select: none;
+	    border: 1px solid transparent;
+	    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	    float : left;
+	}
+	.btn-secondary {
+	    color: #fff;
+	    background-color: #6c757d;
+	    border-color: #6c757d;
+	}
+	.btn-group-lg>.btn, .btn-lg {
+	    padding: 0.5rem 1rem;
+	    font-size: 1.25rem;
+	    line-height: 1.5;
+	    border-radius: 0.3rem;
+	}
+	.btn-group>.btn {
+    	position: relative;
+		width : 20%;
+		margin : 0px;
+	}
+	.btn-group>.btn:first-child {
+    	margin-left: 0;
+	}
+	.btn-group .btn+.btn{
+		margin-left: -1px;
+	}
+	div.row {
+		width : 100%;
+	}
+	.row>* {
+		width : 100%;
+	}
+	.btn-group {
+		width : 100%;
+	}
+	.btn:not(:disabled):not(.disabled) {
+    	cursor: pointer;
+	}
+	.container-fluid-mypagedefault {
+		width : 100%;
+	}
+	#subcontent {
+		
+	}
+	.btn-group btn-group-lg{
+		height : 50px;
+	}
+	#nickBtn {
+		text-align : right;
+	}
+</style>
+<body>
+<%
+	/* 로그인 유저의 정보를 이곳에서 풀어헤친다!! */
+	MemberVO vo= (MemberVO)session.getAttribute("memVO");
+	String email = vo.getEmail();
+	
+%>
+	<div class="container-fluid-mypagedefault">
+		<div class="row">
+			<table>
+				<tr>
+					<td rowspan="2" style="text-align:center;">
+						<!--
+							이 부분 이미지는 이미지 테이블에서 회원이미지가 있는지 판단하고 있으면 해당 이미지,
+							없다면 가지고있는 기본 이미지로 출력
+						-->
+						<img alt="회원이미지" src="<%=request.getContextPath() %>/imageViewforChat.do?email=loveclimax94@naver.com" class="rounded-circle">
+					</td>
+					<td>
+						<h4 id="print-nickname"><%=vo.getU_nick() %></h4>
+						<input type="text" id="for-update-nickname" style="display:none;">
+					</td>
+					<td id="nickBtn" colspan="3">
+						<button type="button" class="" id="check-for-update-nickname" style="display:none;">
+							중복검사
+						</button>
+						<button type="button" class="" id="go-for-update-nickname" style="display:none;">
+							확인
+						</button>
+						<button type="button" class="" id="cancel-for-update-nickname" style="display:none;">
+							취소
+						</button>
+						<button type="button" class="" id="update-nickname">
+							닉네임 수정
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img class="logo" alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"> 판매수 &nbsp;&nbsp;&nbsp; 000 건
+					</td>
+					<td>
+						<img class="logo" alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"> 구매수 &nbsp;&nbsp;&nbsp; 000 건
+					</td>
+					<td>
+					<!-- 여기서 상추이미지를 누르면 상추 신선도에 대한 설명이 들어간 설명문을 띄워준다. -->
+						내 상추 <a href=""><img class="logo" alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"></a>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div class="btn-group btn-group-lg" role="group">
+			<button class="btn btn-secondary" type="button" id="regproduct">
+				등록상품
+			</button> 
+			<button class="btn btn-secondary" type="button" id="tradelog">
+				거래이력
+			</button> 
+			<button class="btn btn-secondary" type="button" id="jjimlist">
+				찜 목록
+			</button> 
+			<button class="btn btn-secondary" type="button" id="sangchutalk">
+				상추톡
+			</button> 
+			<button class="btn btn-secondary" type="button" id="scoreboard">
+				거래후기
+			</button>
+		</div>
+		<div id="subcontent">
+		</div>
+	</div>
+</body>
+<script>
+	$('#update-nickname').on('click',function(){
+		$('#update-nickname').css('display','none');
+		$('#check-for-update-nickname').css('display','inline-block');
+		$('#go-for-update-nickname').css('display','inline-block');
+		$('#cancel-for-update-nickname').css('display','inline-block');
+		
+		
+		
+		
+	})
+	$('#cancel-for-update-nickname').on('click',function(){
+		$('#update-nickname').css('display','block').css('text-align','right');
+		$('#check-for-update-nickname').css('display','none');
+		$('#go-for-update-nickname').css('display','none');
+		$('#cancel-for-update-nickname').css('display','none');
+		
+		
+		
+		
+	})
+	
+	
+	
+	
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

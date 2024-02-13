@@ -1,0 +1,11 @@
+package sangchu.main.dao;
+
+import java.util.List;
+
+import sangchu.tboard.vo.TBoardVO;
+
+public interface IMainDao {
+	
+	
+	
+}

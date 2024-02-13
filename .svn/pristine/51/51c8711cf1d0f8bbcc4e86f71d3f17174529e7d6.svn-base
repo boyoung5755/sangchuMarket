@@ -1,0 +1,35 @@
+package sangchu.qnaBoard.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import sangchu.category.vo.CatLargeVO;
+import sangchu.qnaBoard.vo.QNABoardVO;
+
+/**
+ * Servlet implementation class UpdateForm
+ */
+@WebServlet("/updateForm.do")
+public class UpdateForm extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		QNABoardVO vo = 셀렉트서비스.메소드(cm_no);
+		request.setAttribute("updateInfo", vo);
+		
+		
+		//폼 똑같이 만들은 애를 호출
+		request.getRequestDispatcher("/WEB-INF/jsp/qnaBoard/qnaMainView.jsp").forward(request, response);
+	
+	
+	
+	}
+
+}

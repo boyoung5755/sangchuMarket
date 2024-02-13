@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 myBatis에서 처리할 SQL문을 작성하는 문서입니다. -->
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!--
+	작성자 : 김보영
+	메인에서 사용되는 모든 쿼리들
+
+  -->
+
+<mapper namespace="mainProd">
+	
+	<!--인기상품을 조회하기위해 조회수와 찜횟수를 반환하는 쿼리-->
+	<select id="hotItemRank" resultType="mainProdVO" parameterType="mainProdVO">
+		SELECT 
+			a.T_NO
+			,a.TB_TITLE
+			,a.TB_PRICE
+			,a.TB_OFFER
+			,b.T_DATE
+			,c.CNT + a.tb_cnt AS hot
+		FROM T_BOARD a 
+		INNER JOIN TRADE b
+		ON a.T_NO = b.T_NO
+		INNER JOIN (
+			SELECT t_no, count(*) cnt FROM T_JJIM GROUP BY t_no
+		) c
+			ON a.t_no = c.t_no
+	 </select>
+
+</mapper>	

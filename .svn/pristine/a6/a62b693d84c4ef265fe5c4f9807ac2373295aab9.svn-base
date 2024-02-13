@@ -1,0 +1,32 @@
+package sangchu.main.vo;
+
+public class MainProdVO {
+	
+	//메인에서 상품조회할때 사용 모든 컬럼들..
+	
+	
+	//T_JJim 
+	private String email;//
+	private String t_no;//
+	
+	//T_BOARD
+	private String tb_title;//
+	private String tb_content;//
+	private String tb_cnt;//
+	private String tb_loc;//
+	private String tb_loc2;//
+	private String tb_price;//
+	private String tb_offer;//
+	
+	//TRADE
+	private String c_middlecat;//
+	private String t_type;//
+	private String t_date;//
+	private String t_recentdate;//
+	private String t_state;//
+	
+	
+	
+	
+
+}

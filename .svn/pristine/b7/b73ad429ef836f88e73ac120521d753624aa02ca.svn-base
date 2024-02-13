@@ -1,0 +1,30 @@
+package sangchu.qnaBoard.service;
+
+import sangchu.main.dao.IMainDao;
+import sangchu.main.dao.MainDaoImpl;
+import sangchu.main.service.IMainService;
+import sangchu.main.service.MainServiceImpl;
+import sangchu.qnaBoard.dao.IQNABoardDao;
+import sangchu.qnaBoard.dao.QNABoardDaoImpl;
+import sangchu.qnaBoard.vo.QNABoardVO;
+
+public class QNABoardServiceImpl implements IQNABoardService{
+
+	private IQNABoardDao dao;
+	private static IQNABoardService service;
+	private QNABoardServiceImpl() {
+		dao = QNABoardDaoImpl.getInstance();
+	}
+	public static IQNABoardService getInstance()  {
+		if(service==null) service = new QNABoardServiceImpl();
+		return service;
+	}
+	
+	
+	
+	@Override
+	public int insertQNABoard(QNABoardVO vo) {
+		// TODO Auto-generated method stub
+		return dao.insertQNABoard(vo);
+	}	
+}

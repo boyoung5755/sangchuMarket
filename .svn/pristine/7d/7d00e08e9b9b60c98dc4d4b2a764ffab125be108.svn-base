@@ -1,0 +1,37 @@
+package sangchu.category.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import sangchu.category.vo.CatLargeVO;
+import sangchu.category.vo.CatMiddleVO;
+import sangchu.tboard.dao.ITBoardDao;
+import sangchu.tboard.dao.TBoardDaoImpl;
+
+public class CategoryDaoImpl  implements ICategoryDao{
+	
+	SqlSession sql;
+	
+	private static ICategoryDao dao;
+	
+	public static ICategoryDao getDao() {
+		if(dao == null) dao = new CategoryDaoImpl();
+		
+		return dao;
+ 	}
+	
+	
+	@Override
+	public List<CatLargeVO> selectCatLargeList(CatLargeVO la) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CatMiddleVO> selectCatMiddleList(CatMiddleVO mi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,36 @@
+package sangchu.tboard.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import mybatis.config.MybatisUtil;
+import sangchu.tboard.vo.TBoardVO;
+
+public class TBoardDaoImpl implements ITBoardDao {
+
+	SqlSession sql;
+	
+	private static ITBoardDao dao;
+	
+	public static ITBoardDao getInstance() {
+		if(dao==null)dao=new TBoardDaoImpl();
+		return dao;
+	}
+	
+	@Override
+	public List<TBoardVO> selectTBoard(int mid) {
+		List<TBoardVO> list=null;
+		try { 
+			sql=MybatisUtil.getSqlSession();
+			list = sql.selectList("tboard.selectTBoard", mid);
+		}catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(sql!=null) sql.commit();
+			if(sql!=null) sql.close();
+		}
+		return list;
+	}
+
+}

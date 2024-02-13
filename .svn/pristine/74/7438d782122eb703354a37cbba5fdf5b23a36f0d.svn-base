@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 myBatis에서 처리할 SQL문을 작성하는 문서입니다. -->
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna">
+
+	<!-- 문의 게시글 등록-->
+	<insert id="insertQNABoard" parameterType="qnaBoardVO">
+		INSERT INTO COMMUNITY
+			(CM_NO, CM_CAT, CM_TITLE, CM_CONTENT, CM_DATE, CM_HIT, EMAIL)
+		VALUES(
+			 (#{cm_no}||LPAD(SEQ_FOR_QNABOARD.nextval, 10, '0'))
+			, #{cm_cat}
+			, #{cm_title}
+			,#{cm_content}
+			, sysdate
+			, #{cm_hit} 
+			, #{email}
+			)
+	</insert>
+
+
+
+
+
+
+</mapper>	

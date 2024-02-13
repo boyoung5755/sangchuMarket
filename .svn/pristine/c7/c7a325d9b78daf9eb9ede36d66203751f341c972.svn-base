@@ -1,0 +1,20 @@
+package sangchu.tboard.dao;
+
+import java.util.List;
+
+import sangchu.tboard.vo.TBoardVO;
+
+public interface ITBoardDao {
+
+	public List<TBoardVO> selectTBoard(int mid);
+	
+	
+	
+	
+	/**
+	 * 최근 등록된 상품 조회하는 메소드 
+	 * @return 최근등록상품순으로 정렬된 list
+	 * 작성자 : 김보영
+	 */
+	public List<TBoardVO> recentProd (TBoardVO vo);
+}

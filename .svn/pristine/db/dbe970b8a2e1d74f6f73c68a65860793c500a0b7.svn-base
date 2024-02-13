@@ -1,0 +1,33 @@
+package sangchu.mypage.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/regProductList.do")
+public class RegProductList extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 1. httpservlet session에서 로그인 유저 정보를 가지고온다.
+		
+		// 2. 해당 로그인 유저 정보로 trade테이블에서 거래번호를 거래유형에 맞춰 두 가지를  가지고온다.
+		
+		// 3. 거래 유형에 따라 regBuyList, regSellList로 나누어 Attr에 저장한다.
+		/*
+		List<>
+		
+		request.setAttribute("regBuyList", );
+		request.setAttribute("regSellList", );
+		*/
+		// 4. jsp에 가서 출력문을 처리한다.
+		request.getRequestDispatcher("/WEB-INF/jsp/mypage/mypageRegProductList.jsp").forward(request, response);
+	}
+
+}

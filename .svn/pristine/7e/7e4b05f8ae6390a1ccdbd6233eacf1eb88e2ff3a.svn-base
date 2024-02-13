@@ -1,0 +1,10 @@
+package sangchu.tboard.dao;
+
+import java.util.List;
+
+import sangchu.tboard.vo.TBoardVO;
+
+public interface ITBoardDao {
+
+	public List<TBoardVO> selectTBoard(int mid);
+}

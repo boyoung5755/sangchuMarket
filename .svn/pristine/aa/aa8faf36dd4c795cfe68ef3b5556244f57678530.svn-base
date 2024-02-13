@@ -1,0 +1,23 @@
+package sangchu.main.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import mybatis.config.MybatisUtil;
+import sangchu.tboard.vo.TBoardVO;
+
+public class MainDaoImpl implements IMainDao {
+	private static IMainDao dao;
+	private MainDaoImpl() {}
+	private SqlSession session;
+	public static IMainDao getInstance() {
+		if(dao==null) dao = new MainDaoImpl();
+		return dao;
+	}
+	
+	
+
+	
+	
+}
