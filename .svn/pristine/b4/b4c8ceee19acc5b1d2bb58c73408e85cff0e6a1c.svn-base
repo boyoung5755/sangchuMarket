@@ -1,9 +1,0 @@
-package sangchu.qnaBoard.dao;
-
-import sangchu.qnaBoard.vo.QNABoardVO;
-
-public interface IQNABoardDao {
-	
-	public int insertQNABoard (QNABoardVO vo);
-
-}

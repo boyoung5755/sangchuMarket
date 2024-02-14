@@ -1,5 +1,0 @@
-package sangchu.main.dao;
-
-public interface IMainDao {
-
-}

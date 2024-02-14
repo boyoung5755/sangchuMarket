@@ -1,9 +1,0 @@
-package sangchu.qnaBoard.service;
-
-import sangchu.qnaBoard.vo.QNABoardVO;
-
-public interface IQNABoardService {
-	
-	public int insertQNABoard (QNABoardVO vo);
-
-}
